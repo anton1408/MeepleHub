@@ -3,11 +3,18 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0"
+  },
   "exports": {
     ".": "./src/index.ts"
   },
   "dependencies": {
     "i18next": "catalog:",
     "react-i18next": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*"
   }
 }

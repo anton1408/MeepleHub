@@ -1,4 +1,4 @@
-import i18next, { type i18n } from 'i18next';
+import i18next, { type i18n as I18nInstance } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import { defaultLocale, defaultNamespace, locales, namespaces, type Locale } from './locales.js';
@@ -8,7 +8,7 @@ export interface CreateI18nOptions {
   lng?: Locale;
 }
 
-export function createI18n(options: CreateI18nOptions = {}): i18n {
+export function createI18n(options: CreateI18nOptions = {}): I18nInstance {
   const instance = i18next.createInstance();
 
   instance.use(initReactI18next).init({

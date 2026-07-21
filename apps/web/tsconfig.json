@@ -7,12 +7,6 @@
       "@repo/ui-kit/*": ["../../packages/ui-kit/src/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "next.config.*",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
+  "include": ["next-env.d.ts", "next.config.*", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

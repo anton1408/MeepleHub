@@ -3,15 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "_____________________BUILD_____________________": "",
     "build": "turbo run build",
+    "build:web": "turbo build --filter=@meeplehub/web",
+    "_____________________DEV_____________________": "",
     "dev": "turbo run dev",
-    "dev:web": "turbo run dev --filter web",
+    "dev:web": "turbo dev --filter=@meeplehub/web",
+    "_____________________LINT_____________________": "",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "_____________________FORMAT_____________________": "",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "_____________________TYPE_____________________": "",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
     "prettier": "catalog:",
+    "prettier-plugin-tailwindcss": "catalog:",
     "turbo": "catalog:",
     "typescript": "catalog:"
   },

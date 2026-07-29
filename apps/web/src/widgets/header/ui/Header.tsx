@@ -1,3 +1,9 @@
-export default function Header() {
-  return <div className="h-16 w-full bg-gray-500">Header</div>;
+import { cn } from '@repo/ui-kit';
+
+type HeaderProps = {
+  className?: string;
+};
+
+export default function Header({ className }: HeaderProps) {
+  return <div className={cn('bg-card h-18 w-full', className)}></div>;
 }

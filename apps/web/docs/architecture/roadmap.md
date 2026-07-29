@@ -18,7 +18,7 @@
 - [ ] Sidebar
 - [ ] Navigation
 - [ ] UiButton
-- [ ] Card
+- [x] UiCard
 - [ ] Dialog
 - [ ] Table
 

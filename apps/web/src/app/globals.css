@@ -1,4 +1,5 @@
 @import '@repo/ui-kit/style';
+@import '../styles/theme.css';
 
 * {
   box-sizing: border-box;

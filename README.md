@@ -92,3 +92,7 @@ Important files:
 - `apps/web/src/app/page.tsx` - home page
 - `apps/web/src/app/globals.css` - global styles
 - `apps/web/next.config.ts` - Next.js configuration
+
+## UI Kit
+
+`packages/ui-kit` is a shared React UI package. See the [UI Kit README](packages/ui-kit/README.md) for more information.

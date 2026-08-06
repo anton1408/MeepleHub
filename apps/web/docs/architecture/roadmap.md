@@ -10,6 +10,7 @@
 - [x] Create UI package scaffold
 - [ ] Replace starter UI components with product primitives
 - [ ] Decide Storybook setup
+- [ ] Set up CI (GitHub Actions)
 
 ## Phase 2 - Web UI
 

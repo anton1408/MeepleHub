@@ -30,6 +30,16 @@ packages/
 
 Dependency versions are centralized in `pnpm-workspace.yaml` using pnpm catalogs.
 
+## Documentation
+
+Architecture and product documentation lives in `apps/web/docs/architecture`:
+
+- [Vision](apps/web/docs/architecture/vision.md) - product vision and goals
+- [Domain Model](apps/web/docs/architecture/domain-model.md) - core entities and relationships
+- [Information Architecture](apps/web/docs/architecture/information-architecture.md) - navigation and content structure
+- [User Flows](apps/web/docs/architecture/user-flows.md) - key user journeys
+- [Roadmap](apps/web/docs/architecture/roadmap.md) - planned work by phase
+
 ## Install
 
 ```sh

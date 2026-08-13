@@ -2,6 +2,7 @@ node_modules
 .next
 .turbo
 .idea
+.claude
 dist
 build
 coverage

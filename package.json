@@ -16,6 +16,8 @@
     "format:fix": "prettier --write .",
     "_____________________TYPE_____________________": "",
     "check-types": "turbo run check-types",
+    "_____________________TEST_____________________": "",
+    "test": "turbo run test",
     "_____________________UTILS_____________________": "",
     "prepare": "husky"
   },

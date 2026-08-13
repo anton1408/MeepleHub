@@ -1,0 +1,56 @@
+name: CI
+
+# Run quality checks on every pull request targeting main,
+# and on direct pushes to main (e.g. after a merge).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# If a new commit is pushed to the same branch/PR while a run is
+# still in progress, cancel the old run — no point checking stale code.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    # Each check runs as its own parallel job with a separate status,
+    # so a failing lint doesn't hide a failing test — all of them report.
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: '🎨 Format'
+            cmd: format:check
+          - name: '🔍 Lint'
+            cmd: lint
+          - name: '🔷 Type Check'
+            cmd: check-types
+          - name: '🧪 Unit Tests'
+            cmd: test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # pnpm must be installed before setup-node so the pnpm cache works.
+      # Version is read automatically from the "packageManager" field in package.json.
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # In CI vitest runs once and exits (it auto-detects the CI
+      # environment), so the test job doesn't hang in watch mode.
+      - name: Run ${{ matrix.name }}
+        run: pnpm ${{ matrix.cmd }}

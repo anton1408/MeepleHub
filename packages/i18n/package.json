@@ -1,5 +1,5 @@
 {
-  "name": "@repo/i18n",
+  "name": "@meeplehub/i18n",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -15,8 +15,8 @@
     "react-i18next": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@meeplehub/eslint-config": "workspace:*",
+    "@meeplehub/typescript-config": "workspace:*",
     "eslint": "catalog:"
   }
 }

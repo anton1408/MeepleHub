@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header } from '@/widgets/header';
 import { Inter } from 'next/font/google';
-import { cn } from '@repo/ui-kit';
-import { UiCard } from '@repo/ui-kit/ui/UiCard';
+import { cn } from '@meeplehub/ui-kit';
+import { UiCard } from '@meeplehub/ui-kit/ui/UiCard';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 

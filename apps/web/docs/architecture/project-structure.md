@@ -52,7 +52,7 @@ MeepleHub/
 │   └── storybook/                         # placeholder (.gitkeep) — Storybook, future
 │
 ├── packages/
-│   ├── ui-kit/                             # @repo/ui-kit — shared UI library
+│   ├── ui-kit/                             # @meeplehub/ui-kit — shared UI library
 │   │   ├── src/
 │   │   │   ├── ui/                          # one folder per component, `Ui`-prefixed
 │   │   │   │   ├── UiButton/                # ⭐ reference component (see conventions)
@@ -80,7 +80,7 @@ MeepleHub/
 │   │   ├── README.md
 │   │   └── package.json
 │   │
-│   ├── i18n/                               # @repo/i18n — shared localization
+│   ├── i18n/                               # @meeplehub/i18n — shared localization
 │   │   ├── src/
 │   │   │   ├── locales/
 │   │   │   │   ├── en/common.json
@@ -143,7 +143,7 @@ Notes:
 ### Package naming
 
 - Root: `@meeplehub/monorepo`; web app: `@meeplehub/web`.
-- Shared packages use the `@repo/*` scope: `@repo/ui-kit`, `@repo/i18n`.
+- Shared packages use the `@meeplehub/*` scope: `@meeplehub/ui-kit`, `@meeplehub/i18n`.
 
 ### Web app (FSD)
 

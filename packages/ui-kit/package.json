@@ -1,5 +1,5 @@
 {
-  "name": "@repo/ui-kit",
+  "name": "@meeplehub/ui-kit",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -24,8 +24,8 @@
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@meeplehub/eslint-config": "workspace:*",
+    "@meeplehub/typescript-config": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",

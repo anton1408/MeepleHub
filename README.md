@@ -35,6 +35,7 @@ Dependency versions are centralized in `pnpm-workspace.yaml` using pnpm catalogs
 
 Architecture and product documentation lives in `apps/web/docs/architecture`:
 
+- [Project Structure](apps/web/docs/architecture/project-structure.md) - actual repository layout and conventions
 - [Vision](apps/web/docs/architecture/vision.md) - product vision and goals
 - [Domain Model](apps/web/docs/architecture/domain-model.md) - core entities and relationships
 - [Information Architecture](apps/web/docs/architecture/information-architecture.md) - navigation and content structure

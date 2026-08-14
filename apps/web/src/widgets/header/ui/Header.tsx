@@ -1,4 +1,4 @@
-import { cn } from '@repo/ui-kit';
+import { cn } from '@meeplehub/ui-kit';
 
 type HeaderProps = {
   className?: string;

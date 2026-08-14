@@ -1,10 +1,10 @@
 {
-  "extends": "@repo/typescript-config/nextjs.json",
+  "extends": "@meeplehub/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@repo/ui-kit/*": ["../../packages/ui-kit/src/*"]
+      "@meeplehub/ui-kit/*": ["../../packages/ui-kit/src/*"]
     }
   },
   "include": ["next-env.d.ts", "next.config.*", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],

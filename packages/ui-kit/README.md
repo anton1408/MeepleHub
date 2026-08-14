@@ -1,4 +1,4 @@
-# @repo/ui-kit
+# @meeplehub/ui-kit
 
 This is a React UI component package for MeepleHub, built on top of React, Tailwind CSS, and Shadcn UI.
 

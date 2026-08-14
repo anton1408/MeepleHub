@@ -9,6 +9,8 @@
 - **Monorepo:** pnpm workspaces + Turborepo (`turbo.json`, `pnpm-workspace.yaml` with a version `catalog`).
 - **Web:** Next.js (App Router), React 19, Tailwind CSS v4.
 - **UI kit:** React + Tailwind + Shadcn UI (as a scaffolding source only — see conventions).
+-
+- **Storybook:** component workshop for the UI kit (Storybook 10, `@storybook/react-vite`, Tailwind v4, light/dark themes).
 - **i18n:** shared locale package (`en`, `uk`).
 - **Tooling:** ESLint (flat config), Prettier, Husky (pre-commit: `check-types` + `format:check`), Vitest.
 
@@ -49,7 +51,18 @@ MeepleHub/
 │   │   └── package.json
 │   │
 │   ├── mobile/                             # placeholder (.gitkeep) — React Native, future
-│   └── storybook/                         # placeholder (.gitkeep) — Storybook, future
+│   └── storybook/                          # @meeplehub/storybook — Storybook for the UI kit
+│       ├── .storybook/
+│       │   ├── main.ts                      # stories glob + addons + react-vite framework
+│       │   ├── preview.ts                   # light/dark theme switcher (addon-themes)
+│       │   └── preview.css                  # ui-kit styles + palette + @source over stories
+│       ├── src/
+│       │   └── UiButton.stories.tsx         # stories live here (separate from ui-kit)
+│       ├── vite.config.ts                   # react() + @tailwindcss/vite
+│       ├── vite-env.d.ts
+│       ├── eslint.config.mjs
+│       ├── tsconfig.json
+│       └── package.json
 │
 ├── packages/
 │   ├── ui-kit/                             # @meeplehub/ui-kit — shared UI library
@@ -154,6 +167,5 @@ as the product grows.
 ## Placeholders (exist as `.gitkeep`, not yet implemented)
 
 - `apps/mobile/` — React Native (future)
-- `apps/storybook/` — Storybook (future)
 - `packages/api/` — shared API client (future)
 - `packages/ui-kit/src/feature/` — reserved

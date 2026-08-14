@@ -1,0 +1,8 @@
+/* Tailwind engine + @theme inline token mapping + @source over ui-kit components */
+@import '@meeplehub/ui-kit/style';
+
+/* Raw palette values: :root (light) and .dark (dark) — both themes live here */
+@import '../../web/src/styles/theme.css';
+
+/* Scan the story files themselves so classes used in stories/decorators are generated */
+@source '../src/**/*.{ts,tsx}';

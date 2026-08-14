@@ -6,9 +6,11 @@
     "_____________________BUILD_____________________": "",
     "build": "turbo run build",
     "build:web": "turbo build --filter=@meeplehub/web",
+    "build:storybook": "turbo build --filter=@meeplehub/storybook",
     "_____________________DEV_____________________": "",
     "dev": "turbo run dev",
     "dev:web": "turbo dev --filter=@meeplehub/web",
+    "dev:storybook": "turbo dev --filter=@meeplehub/storybook",
     "_____________________LINT_____________________": "",
     "lint": "turbo run lint",
     "_____________________FORMAT_____________________": "",
@@ -36,7 +38,7 @@
   },
   "packageManager": "pnpm@10.33.1",
   "engines": {
-    "node": ">=18",
+    "node": ">=20",
     "pnpm": "10.33.1"
   }
 }

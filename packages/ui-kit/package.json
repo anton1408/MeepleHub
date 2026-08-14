@@ -8,6 +8,7 @@
   "style": "./src/style/index.css",
   "exports": {
     ".": "./src/index.ts",
+    "./icons": "./src/icons/index.ts",
     "./style": "./src/style/index.css"
   },
   "scripts": {

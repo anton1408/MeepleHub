@@ -26,6 +26,7 @@ coverage
 out/
 build
 dist
+storybook-static/
 
 # Next.js generated
 next-env.d.ts

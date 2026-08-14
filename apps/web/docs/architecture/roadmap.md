@@ -9,7 +9,7 @@
 - [x] Create Next.js web app
 - [x] Create UI package scaffold
 - [ ] Replace starter UI components with product primitives
-- [ ] Decide Storybook setup
+- [x] Set up Storybook for the UI kit
 - [ ] Set up CI (GitHub Actions)
 
 ## Phase 2 - Web UI

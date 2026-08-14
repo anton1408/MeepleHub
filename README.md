@@ -19,7 +19,7 @@ corepack enable
 apps/
   web/         Next.js web application
   mobile/      Reserved for a future mobile app
-  storybook/   Reserved for future Storybook setup
+  storybook/   Storybook for the UI kit (React + Vite, light/dark themes)
 
 packages/
   ui-kit/               Shared React UI package

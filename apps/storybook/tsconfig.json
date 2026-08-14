@@ -1,0 +1,10 @@
+{
+  "extends": "@meeplehub/typescript-config/react-library.json",
+  "compilerOptions": {
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "noEmit": true
+  },
+  "include": [".storybook/**/*", "src/**/*", "vite.config.ts", "vite-env.d.ts"],
+  "exclude": ["node_modules", "storybook-static"]
+}

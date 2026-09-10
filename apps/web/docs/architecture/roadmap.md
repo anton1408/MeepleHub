@@ -48,6 +48,16 @@
 - [ ] Play sync
 - [ ] Replace mock data with real data loading
 
+> **BGG API (under consideration):** using the BGG XML API2 requires registering an
+> application with BoardGameGeek. This is still being evaluated and not yet approved.
+>
+> **Reminder:** once integrated, every request must send a `User-Agent` header that matches
+> the client name registered with BGG:
+>
+> ```ts
+> fetch(url, { headers: { 'User-Agent': 'MeepleHub/1.0' } });
+> ```
+
 ## Phase 6 - Mobile
 
 - [ ] Define shared domain and API packages

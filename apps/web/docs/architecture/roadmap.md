@@ -43,7 +43,10 @@
 ## Phase 5 - Data
 
 - [ ] Define API boundaries
-- [ ] BGG integration
+- [ ] Set up TanStack Query
+- [ ] Define the BGG client abstraction (mock and real implementations)
+- [ ] Implement the mock BGG client (used first)
+- [ ] BGG integration (real client)
 - [ ] Collection import
 - [ ] Play sync
 - [ ] Replace mock data with real data loading

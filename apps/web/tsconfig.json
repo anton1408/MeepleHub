@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@meeplehub/ui-kit/*": ["../../packages/ui-kit/src/*"]
+      "@meeplehub/ui-kit/*": ["../../packages/ui-kit/src/*"],
+      "@meeplehub/api/*": ["../../packages/api/src/*"]
     }
   },
   "include": ["next-env.d.ts", "next.config.*", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],

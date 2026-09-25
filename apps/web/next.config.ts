@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@meeplehub/ui-kit'],
+  transpilePackages: ['@meeplehub/api', '@meeplehub/ui-kit'],
 };
 
 export default nextConfig;

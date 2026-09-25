@@ -1,0 +1,3 @@
+# BGG data dumps — downloaded locally, not committed (see README.md).
+# The file is large (~11 MB) and updated daily by BoardGameGeek.
+/data/*.csv

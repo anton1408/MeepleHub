@@ -1,0 +1,19 @@
+{
+  "name": "@meeplehub/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./bgg": "./src/bgg/index.ts"
+  },
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "lint": "eslint . --max-warnings 0"
+  },
+  "devDependencies": {
+    "@meeplehub/eslint-config": "workspace:*",
+    "@meeplehub/typescript-config": "workspace:*",
+    "eslint": "catalog:"
+  }
+}

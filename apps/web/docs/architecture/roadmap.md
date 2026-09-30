@@ -15,7 +15,7 @@
 ## Phase 2 - Web UI
 
 - [ ] App shell
-- [ ] Header
+- [x] Header
 - [ ] Sidebar
 - [ ] Navigation
 - [x] UiButton
@@ -26,7 +26,7 @@
 ## Phase 3 - Public Area
 
 - [ ] Home
-- [ ] Search
+- [~] Search (header autocomplete via UiAutocomplete + mock BGG; routing to Game Details wired)
 - [ ] Game Details
 - [ ] Trending Games
 - [ ] Top Rated Games
@@ -44,15 +44,16 @@
 
 - [ ] Define API boundaries
 - [ ] Set up TanStack Query
-- [ ] Define the BGG client abstraction (mock and real implementations)
-- [ ] Implement the mock BGG client (used first)
+- [x] Define the BGG client abstraction (mock and real implementations)
+- [x] Implement the mock BGG client (used first)
 - [ ] BGG integration (real client)
 - [ ] Collection import
 - [ ] Play sync
 - [ ] Replace mock data with real data loading
 
-> **BGG API (under consideration):** using the BGG XML API2 requires registering an
-> application with BoardGameGeek. This is still being evaluated and not yet approved.
+> **BGG API (approved):** using the BGG XML API2 requires registering an
+> application with BoardGameGeek. Registration is approved; the app still runs on
+> the mock client for now, with the real client to be wired in next.
 >
 > **Reminder:** once integrated, every request must send a `User-Agent` header that matches
 > the client name registered with BGG:

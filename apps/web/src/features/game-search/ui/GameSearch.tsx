@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 import { UiAutocomplete } from '@meeplehub/ui-kit/ui/UiAutocomplete';
 import type { BggSearchResult } from '@meeplehub/api/bgg';
 import { useDebouncedValue } from '@/shared/lib/useDebouncedValue';
@@ -14,34 +15,15 @@ type GameSearchProps = {
 export function GameSearch({ className }: GameSearchProps) {
   const router = useRouter();
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<BggSearchResult[]>([]);
-  const [loading, setLoading] = useState(false);
-
   const debouncedQuery = useDebouncedValue(query, 250);
+  const trimmedDebouncedQuery = debouncedQuery.trim();
 
-  useEffect(() => {
-    const q = debouncedQuery.trim();
-    if (!q) {
-      setResults([]);
-      setLoading(false);
-      return;
-    }
-
-    let cancelled = false;
-    setLoading(true);
-
-    searchGames(q)
-      .then((items) => {
-        if (!cancelled) setResults(items);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-
-    return () => {
-      cancelled = true;
-    };
-  }, [debouncedQuery]);
+  const { data: results = [], isFetching } = useQuery({
+    queryKey: ['games', 'search', trimmedDebouncedQuery],
+    queryFn: () => searchGames(trimmedDebouncedQuery),
+    enabled: trimmedDebouncedQuery.length > 0,
+    staleTime: 24 * 60 * 60 * 1000, // fresh for 1 day (cache)
+  });
 
   return (
     <UiAutocomplete<BggSearchResult>
@@ -49,7 +31,7 @@ export function GameSearch({ className }: GameSearchProps) {
       value={query}
       onValueChange={setQuery}
       items={results}
-      loading={loading}
+      loading={isFetching}
       getKey={(game) => game.id}
       getLabel={(game) => game.name}
       onSelect={(game) => router.push(`/game/${game.id}`)}

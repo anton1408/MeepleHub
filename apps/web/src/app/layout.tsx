@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Providers } from './providers';
 import { Header } from '@/widgets/header';
 import { Inter } from 'next/font/google';
 import { cn } from '@meeplehub/ui-kit';
@@ -20,15 +21,12 @@ export default function RootLayout({
   return (
     <html lang="uk" className={cn('font-sans', inter.variable)}>
       <body className="bg-background p-4">
-        <UiCard>
-          <Header className="border-b" />
-          <h2>Lorem ipsum dolor sit amet.</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus asperiores commodi illo inventore ipsa
-            nobis quae vitae.
-          </p>
-          {children}
-        </UiCard>
+        <Providers>
+          <UiCard>
+            <Header className="border-b" />
+            {children}
+          </UiCard>
+        </Providers>
       </body>
     </html>
   );

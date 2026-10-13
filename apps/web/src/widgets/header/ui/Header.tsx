@@ -1,6 +1,5 @@
 import { cn } from '@meeplehub/ui-kit';
 import { Logo } from '@/shared/ui/Logo';
-import { UiInput } from '@meeplehub/ui-kit/ui/UiInput';
 import { UiButton } from '@meeplehub/ui-kit/ui/UiButton';
 import { GameSearch } from '@/features/game-search';
 

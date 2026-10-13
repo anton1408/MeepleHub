@@ -26,7 +26,7 @@
 ## Phase 3 - Public Area
 
 - [ ] Home
-- [~] Search (header autocomplete via UiAutocomplete + mock BGG; routing to Game Details wired)
+- [x] Search (header autocomplete via UiAutocomplete + BGG client; routing to Game Details wired)
 - [ ] Game Details
 - [ ] Trending Games
 - [ ] Top Rated Games
@@ -43,24 +43,22 @@
 ## Phase 5 - Data
 
 - [ ] Define API boundaries
-- [ ] Set up TanStack Query
+- [x] Set up TanStack Query
 - [x] Define the BGG client abstraction (mock and real implementations)
 - [x] Implement the mock BGG client (used first)
-- [ ] BGG integration (real client)
+- [x] BGG integration (real client) — XML API2 parsing + bearer-token auth, switchable via `BGG_USE_MOCK`
 - [ ] Collection import
 - [ ] Play sync
 - [ ] Replace mock data with real data loading
 
-> **BGG API (approved):** using the BGG XML API2 requires registering an
-> application with BoardGameGeek. Registration is approved; the app still runs on
-> the mock client for now, with the real client to be wired in next.
+> **BGG API (integrated):** the real BGG XML API2 client is wired in and working.
+> Every request sends `User-Agent: MeepleHub/1.0` (matching the registered app) and,
+> when configured, an `Authorization: Bearer <token>` header. The token lives in
+> `BGG_API_TOKEN` (server-only, git-ignored). The client is switchable: set
+> `BGG_USE_MOCK=1` to run on fixtures instead of the live API.
 >
-> **Reminder:** once integrated, every request must send a `User-Agent` header that matches
-> the client name registered with BGG:
->
-> ```ts
-> fetch(url, { headers: { 'User-Agent': 'MeepleHub/1.0' } });
-> ```
+> See [bgg-integration.md](./bgg-integration.md) for the full integration, auth, and
+> security notes.
 
 ## Phase 6 - Mobile
 

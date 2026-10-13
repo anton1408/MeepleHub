@@ -7,9 +7,9 @@
 ## Stack
 
 - **Monorepo:** pnpm workspaces + Turborepo (`turbo.json`, `pnpm-workspace.yaml` with a version `catalog`).
-- **Web:** Next.js (App Router), React 19, Tailwind CSS v4.
+- **Web:** Next.js (App Router), React 19, Tailwind CSS v4, TanStack Query (client-side data).
 - **UI kit:** React + Tailwind + Shadcn UI (as a scaffolding source only — see conventions).
--
+- **Data/API:** `@meeplehub/api` — BGG XML API2 client (real + mock), consumed server-side by the web app.
 - **Storybook:** component workshop for the UI kit (Storybook 10, `@storybook/react-vite`, Tailwind v4, light/dark themes).
 - **i18n:** shared locale package (`en`, `uk`).
 - **Tooling:** ESLint (flat config), Prettier, Husky (pre-commit: `check-types` + `format:check`), Vitest.
@@ -22,17 +22,39 @@ MeepleHub/
 │   ├── web/                                # @meeplehub/web — Next.js App Router
 │   │   ├── src/
 │   │   │   ├── app/
+│   │   │   │   ├── game/
+│   │   │   │   │   └── [id]/                # dynamic route — game details (RSC)
+│   │   │   │   │       ├── page.tsx         # server component, fetches via shared/api/bgg
+│   │   │   │   │       ├── loading.tsx
+│   │   │   │   │       └── not-found.tsx
 │   │   │   │   ├── layout.tsx
 │   │   │   │   ├── page.tsx
+│   │   │   │   ├── providers.tsx            # TanStack Query provider (client component)
 │   │   │   │   └── globals.css
+│   │   │   ├── features/                    # FSD layer
+│   │   │   │   └── game-search/
+│   │   │   │       ├── api/
+│   │   │   │       │   └── searchGames.ts   # server action → bgg.search
+│   │   │   │       ├── ui/
+│   │   │   │       │   └── GameSearch.tsx   # autocomplete + useQuery
+│   │   │   │       └── index.ts
+│   │   │   ├── shared/                      # FSD layer
+│   │   │   │   ├── api/
+│   │   │   │   │   └── bgg.ts               # server-only; mock/real BGG client switch
+│   │   │   │   ├── lib/
+│   │   │   │   │   └── useDebouncedValue.ts
+│   │   │   │   └── ui/
+│   │   │   │       └── Logo/
+│   │   │   │           ├── Logo.tsx
+│   │   │   │           └── index.ts
 │   │   │   ├── styles/
 │   │   │   │   └── theme.css                # app-level theme (moved here from ui-kit)
-│   │   │   └── widgets/                     # FSD layer — only `header` exists so far
+│   │   │   └── widgets/                     # FSD layer
 │   │   │       └── header/
 │   │   │           ├── index.ts
 │   │   │           └── ui/
 │   │   │               └── Header.tsx
-│   │   │   # NOTE: features/ · entities/ · shared/ · middleware.ts are planned (FSD) but NOT created yet
+│   │   │   # NOTE: entities/ and middleware.ts are planned (FSD) but NOT created yet
 │   │   │
 │   │   ├── docs/
 │   │   │   └── architecture/
@@ -41,8 +63,10 @@ MeepleHub/
 │   │   │       ├── information-architecture.md
 │   │   │       ├── user-flows.md
 │   │   │       ├── roadmap.md
+│   │   │       ├── bgg-integration.md        # BGG client, mock/real switch, token security
 │   │   │       └── project-structure.md     # this file
 │   │   │
+│   │   ├── .env.example                     # env vars (BGG_USE_MOCK, BGG_API_TOKEN); .env.local is git-ignored
 │   │   ├── next.config.ts
 │   │   ├── next-env.d.ts
 │   │   ├── postcss.config.mjs
@@ -105,7 +129,22 @@ MeepleHub/
 │   │   ├── tsconfig.json
 │   │   └── package.json
 │   │
-│   ├── api/                                # placeholder (.gitkeep) — shared API client, future
+│   ├── api/                                # @meeplehub/api — BGG client (mock + real)
+│   │   ├── src/
+│   │   │   ├── bgg/
+│   │   │   │   ├── client.ts                # BggHttpClient — real XML API2 (fast-xml-parser)
+│   │   │   │   ├── types.ts                 # BggClient, BggSearchResult, BggGame
+│   │   │   │   ├── index.ts                 # subpath entry (@meeplehub/api/bgg) — re-exports
+│   │   │   │   └── mock/
+│   │   │   │       ├── client.ts            # MockBggClient
+│   │   │   │       └── data.ts              # MOCK_GAMES fixtures
+│   │   │   └── index.ts                     # package entry (@meeplehub/api)
+│   │   ├── data/                            # .gitkeep — reserved (future CSV source)
+│   │   ├── .gitignore
+│   │   ├── eslint.config.mjs
+│   │   ├── tsconfig.json
+│   │   ├── README.md
+│   │   └── package.json
 │   ├── eslint-config/                     # base.js · next.js · react-internal.js
 │   └── typescript-config/                 # base.json · nextjs.json · react-library.json
 │
@@ -160,12 +199,12 @@ Notes:
 
 ### Web app (FSD)
 
-The web app follows Feature-Sliced Design. Only the `widgets` layer (with `header`) exists
-today. `features/`, `entities/`, `shared/` and `middleware.ts` are planned and will be added
-as the product grows.
+The web app follows Feature-Sliced Design. The `app`, `features` (`game-search`), `shared`
+(`api`, `lib`, `ui`) and `widgets` (`header`) layers exist today. `entities/` and
+`middleware.ts` are planned and will be added as the product grows.
 
 ## Placeholders (exist as `.gitkeep`, not yet implemented)
 
 - `apps/mobile/` — React Native (future)
-- `packages/api/` — shared API client (future)
+- `packages/api/data/` — reserved for a CSV data source (future)
 - `packages/ui-kit/src/feature/` — reserved

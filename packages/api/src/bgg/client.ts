@@ -67,6 +67,7 @@ export class BggHttpClient implements BggClient {
 
     const items = parsed.items?.item ?? [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: type the raw BGG XML API2 response (see roadmap, Phase 5)
     const results: BggSearchResult[] = items.map((item: any) => ({
       id: String(item.id),
       name: item.name?.[0]?.value ?? '',
@@ -80,7 +81,6 @@ export class BggHttpClient implements BggClient {
 
   async getGame(id: string): Promise<BggGame | null> {
     const res = await this.request(`/thing?id=${encodeURIComponent(id)}&stats=1`);
-    console.log('res', res);
     if (!res.ok) throw new Error(`BGG getGame failed: ${res.status}`);
 
     const xml = await res.text();
@@ -89,8 +89,8 @@ export class BggHttpClient implements BggClient {
     const item = parsed.items?.item?.[0];
     if (!item) return null;
 
-    // кілька <name>; беремо той, де type="primary"
     const names = item.name ?? [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- TODO: type the raw BGG XML API2 response (see roadmap, Phase 5)
     const primary = names.find((n: any) => n.type === 'primary') ?? names[0];
 
     return {

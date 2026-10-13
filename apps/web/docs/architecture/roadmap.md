@@ -47,6 +47,7 @@
 - [x] Define the BGG client abstraction (mock and real implementations)
 - [x] Implement the mock BGG client (used first)
 - [x] BGG integration (real client) — XML API2 parsing + bearer-token auth, switchable via `BGG_USE_MOCK`
+- [ ] Type the raw BGG XML API2 response (remove `any` + `eslint-disable` in `packages/api/src/bgg/client.ts`)
 - [ ] Collection import
 - [ ] Play sync
 - [ ] Replace mock data with real data loading
@@ -59,6 +60,12 @@
 >
 > See [bgg-integration.md](./bgg-integration.md) for the full integration, auth, and
 > security notes.
+>
+> **Tech debt:** XML parsing currently relies on `any` with two `eslint-disable`
+> lines in `client.ts` (`search` and `getGame`). The proper fix is to describe the
+> raw node types (`RawName`, `RawSearchItem`, `RawThingItem`) from the BGG XML API2
+> field schema we have access to, then drop the `any` once the response shape is
+> pinned down.
 
 ## Phase 6 - Mobile
 

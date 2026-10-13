@@ -11,6 +11,9 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint . --max-warnings 0"
   },
+  "dependencies": {
+    "fast-xml-parser": "catalog:"
+  },
   "devDependencies": {
     "@meeplehub/eslint-config": "workspace:*",
     "@meeplehub/typescript-config": "workspace:*",

@@ -1,4 +1,17 @@
 import type { BggClient, BggGame, BggSearchOptions, BggSearchResult } from './types';
+import { XMLParser } from 'fast-xml-parser';
+
+const parser = new XMLParser({
+  ignoreAttributes: false,
+  attributeNamePrefix: '',
+  isArray: (name) => name === 'item' || name === 'name',
+});
+
+function toNum(value: unknown): number | undefined {
+  if (value === undefined || value === null || value === '') return undefined;
+  const n = Number(value);
+  return Number.isNaN(n) ? undefined : n;
+}
 
 /**
  * Configuration for the real BGG client.
@@ -10,6 +23,8 @@ import type { BggClient, BggGame, BggSearchOptions, BggSearchResult } from './ty
  * first.
  */
 export type BggClientConfig = {
+  /** Bearer token for the BGG API; sent as `Authorization: Bearer <token>`. Server-side only. */
+  apiToken?: string;
   /** Base URL of the BGG XML API2. */
   baseUrl?: string;
   /** User-Agent sent with every request; must match the name registered with BGG. */
@@ -28,11 +43,13 @@ const DEFAULT_USER_AGENT = 'MeepleHub/1.0';
  * the BGG application registration is approved. See {@link BggClientConfig}.
  */
 export class BggHttpClient implements BggClient {
+  private readonly apiToken?: string;
   private readonly baseUrl: string;
   private readonly userAgent: string;
   private readonly fetchFn: typeof fetch;
 
   constructor(config: BggClientConfig = {}) {
+    this.apiToken = config.apiToken;
     this.baseUrl = config.baseUrl ?? DEFAULT_BASE_URL;
     this.userAgent = config.userAgent ?? DEFAULT_USER_AGENT;
     this.fetchFn = config.fetch ?? fetch;
@@ -41,20 +58,62 @@ export class BggHttpClient implements BggClient {
   async search(query: string, options?: BggSearchOptions): Promise<BggSearchResult[]> {
     const params = new URLSearchParams({ query });
     if (options?.type) params.set('type', options.type);
-    await this.request(`/search?${params.toString()}`);
-    throw new Error('BggHttpClient.search XML parsing is not implemented yet — use the mock client.');
+
+    const res = await this.request(`/search?${params.toString()}`);
+    if (!res.ok) throw new Error(`BGG search failed: ${res.status}`);
+
+    const xml = await res.text();
+    const parsed = parser.parse(xml);
+
+    const items = parsed.items?.item ?? [];
+
+    const results: BggSearchResult[] = items.map((item: any) => ({
+      id: String(item.id),
+      name: item.name?.[0]?.value ?? '',
+      yearPublished: toNum(item.yearpublished?.value),
+    }));
+
+    const seen = new Set<string>();
+
+    return results.filter((r) => (seen.has(r.id) ? false : seen.add(r.id)));
   }
 
   async getGame(id: string): Promise<BggGame | null> {
-    await this.request(`/thing?id=${encodeURIComponent(id)}&stats=1`);
-    throw new Error('BggHttpClient.getGame XML parsing is not implemented yet — use the mock client.');
+    const res = await this.request(`/thing?id=${encodeURIComponent(id)}&stats=1`);
+    console.log('res', res);
+    if (!res.ok) throw new Error(`BGG getGame failed: ${res.status}`);
+
+    const xml = await res.text();
+    const parsed = parser.parse(xml);
+
+    const item = parsed.items?.item?.[0];
+    if (!item) return null;
+
+    // кілька <name>; беремо той, де type="primary"
+    const names = item.name ?? [];
+    const primary = names.find((n: any) => n.type === 'primary') ?? names[0];
+
+    return {
+      id: String(item.id),
+      name: primary?.value ?? '',
+      description: item.description || undefined,
+      yearPublished: toNum(item.yearpublished?.value),
+      image: item.image || undefined,
+      thumbnail: item.thumbnail || undefined,
+      minPlayers: toNum(item.minplayers?.value),
+      maxPlayers: toNum(item.maxplayers?.value),
+      playingTime: toNum(item.playingtime?.value),
+      averageRating: toNum(item.statistics?.ratings?.average?.value),
+    };
   }
 
   /** Issue a request to the API with the required `User-Agent` header. */
   protected request(path: string): Promise<Response> {
-    return this.fetchFn(`${this.baseUrl}${path}`, {
-      headers: { 'User-Agent': this.userAgent },
-    });
+    const headers: Record<string, string> = { 'User-Agent': this.userAgent };
+
+    if (this.apiToken) headers.Authorization = `Bearer ${this.apiToken}`;
+
+    return this.fetchFn(`${this.baseUrl}${path}`, { headers });
   }
 }
 

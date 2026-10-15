@@ -9,7 +9,8 @@
 - **Monorepo:** pnpm workspaces + Turborepo (`turbo.json`, `pnpm-workspace.yaml` with a version `catalog`).
 - **Web:** Next.js (App Router), React 19, Tailwind CSS v4, TanStack Query (client-side data).
 - **UI kit:** React + Tailwind + Shadcn UI (as a scaffolding source only — see conventions).
-- **Data/API:** `@meeplehub/bgg-client` — BGG XML API2 client (real + mock), consumed server-side by the web app.
+- **API:** `@meeplehub/api` — NestJS 12 backend (Express, native ESM, Vitest + Supertest).
+- **BGG client:** `@meeplehub/bgg-client` — BGG XML API2 client (real + mock), consumed server-side by the web app.
 - **Storybook:** component workshop for the UI kit (Storybook 10, `@storybook/react-vite`, Tailwind v4, light/dark themes).
 - **i18n:** shared locale package (`en`, `uk`).
 - **Tooling:** ESLint (flat config), Prettier, Husky (pre-commit: `check-types` + `format:check`), Vitest.
@@ -72,6 +73,26 @@ MeepleHub/
 │   │   ├── postcss.config.mjs
 │   │   ├── eslint.config.js
 │   │   ├── tsconfig.json
+│   │   └── package.json
+│   │
+│   ├── api/                                # @meeplehub/api — NestJS backend (port 8080)
+│   │   ├── src/
+│   │   │   ├── main.ts                      # bootstrap — listens on PORT (default 8080)
+│   │   │   ├── app.module.ts                # root module
+│   │   │   ├── app.controller.ts            # starter controller (GET /)
+│   │   │   ├── app.controller.spec.ts       # unit test (colocated)
+│   │   │   └── app.service.ts
+│   │   ├── test/
+│   │   │   └── app.e2e-spec.ts              # e2e test (Supertest)
+│   │   ├── .env.example                     # documents PORT
+│   │   ├── eslint.config.mjs                # shared base + type-aware no-floating-promises
+│   │   ├── nest-cli.json
+│   │   ├── tsconfig.json                    # extends typescript-config/nestjs.json
+│   │   ├── tsconfig.build.json              # build: src only, specs excluded
+│   │   ├── turbo.json                       # build outputs (dist/**) + PORT passthrough for dev
+│   │   ├── vitest.config.ts
+│   │   ├── vitest.config.e2e.ts
+│   │   ├── README.md
 │   │   └── package.json
 │   │
 │   ├── mobile/                             # placeholder (.gitkeep) — React Native, future
@@ -146,7 +167,7 @@ MeepleHub/
 │   │   ├── README.md
 │   │   └── package.json
 │   ├── eslint-config/                     # base.js · next.js · react-internal.js
-│   └── typescript-config/                 # base.json · nextjs.json · react-library.json
+│   └── typescript-config/                 # base.json · nextjs.json · nestjs.json · react-library.json
 │
 ├── .husky/
 │   └── pre-commit                          # check-types + format:check

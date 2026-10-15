@@ -5,10 +5,12 @@
   "scripts": {
     "_____________________BUILD_____________________": "",
     "build": "turbo run build",
+    "build:api": "turbo build --filter=@meeplehub/api",
     "build:web": "turbo build --filter=@meeplehub/web",
     "build:storybook": "turbo build --filter=@meeplehub/storybook",
     "_____________________DEV_____________________": "",
     "dev": "turbo run dev",
+    "dev:api": "turbo dev --filter=@meeplehub/api",
     "dev:web": "turbo dev --filter=@meeplehub/web",
     "dev:storybook": "turbo dev --filter=@meeplehub/storybook",
     "_____________________LINT_____________________": "",

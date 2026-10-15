@@ -1,4 +1,4 @@
-# @meeplehub/api
+# @meeplehub/bgg-client
 
 Data-access layer for MeepleHub. It exposes a **BoardGameGeek (BGG) client abstraction** with two interchangeable implementations behind a single `BggClient` interface:
 
@@ -18,7 +18,7 @@ Some seed/mock data comes from BoardGameGeek's daily **board game ranks** data d
 **2. Place it here:**
 
 ```
-packages/api/data/boardgames_ranks.csv
+packages/bgg-client/data/boardgames_ranks.csv
 ```
 
 The `data/` directory is kept in the tree via `.gitkeep`, and `*.csv` inside it is gitignored — so the dump will never be accidentally committed.

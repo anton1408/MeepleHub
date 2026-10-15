@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { createMockBggClient, createBggClient, type BggClient } from '@meeplehub/api/bgg';
+import { createMockBggClient, createBggClient, type BggClient } from '@meeplehub/bgg-client/bgg';
 
 const useMock = process.env.BGG_USE_MOCK === '1';
 

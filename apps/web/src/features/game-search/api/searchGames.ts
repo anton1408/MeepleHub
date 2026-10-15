@@ -1,6 +1,6 @@
 'use server';
 
-import type { BggSearchResult } from '@meeplehub/api/bgg';
+import type { BggSearchResult } from '@meeplehub/bgg-client/bgg';
 import { bgg } from '@/shared/api/bgg';
 
 export async function searchGames(query: string): Promise<BggSearchResult[]> {

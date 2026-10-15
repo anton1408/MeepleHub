@@ -47,7 +47,7 @@
 - [x] Define the BGG client abstraction (mock and real implementations)
 - [x] Implement the mock BGG client (used first)
 - [x] BGG integration (real client) — XML API2 parsing + bearer-token auth, switchable via `BGG_USE_MOCK`
-- [ ] Type the raw BGG XML API2 response (remove `any` + `eslint-disable` in `packages/api/src/bgg/client.ts`)
+- [ ] Type the raw BGG XML API2 response (remove `any` + `eslint-disable` in `packages/bgg-client/src/bgg/client.ts`)
 - [ ] Collection import
 - [ ] Play sync
 - [ ] Replace mock data with real data loading

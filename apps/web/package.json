@@ -11,7 +11,7 @@
     "check-types": "next typegen && tsc --noEmit"
   },
   "dependencies": {
-    "@meeplehub/api": "workspace:*",
+    "@meeplehub/bgg-client": "workspace:*",
     "@meeplehub/ui-kit": "workspace:*",
     "@tailwindcss/postcss": "catalog:",
     "@tanstack/react-query": "catalog:",

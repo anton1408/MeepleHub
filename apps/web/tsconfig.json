@@ -5,7 +5,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@meeplehub/ui-kit/*": ["../../packages/ui-kit/src/*"],
-      "@meeplehub/api/*": ["../../packages/api/src/*"]
+      "@meeplehub/bgg-client/*": ["../../packages/bgg-client/src/*"]
     }
   },
   "include": ["next-env.d.ts", "next.config.*", "src/**/*.ts", "src/**/*.tsx", ".next/types/**/*.ts"],

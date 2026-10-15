@@ -10,10 +10,10 @@ The app never depends on BGG's wire format directly — it talks to a small clie
 abstraction (`BggClient`) that returns MeepleHub's own domain types
 (`BggSearchResult`, `BggGame`). Two implementations fulfil that contract:
 
-| Implementation  | Factory               | Source                           | Use                                    |
-| --------------- | --------------------- | -------------------------------- | -------------------------------------- |
-| Mock            | `createMockBggClient` | `packages/api/src/bgg/mock/`     | Local dev / offline / tests (fixtures) |
-| Real (XML API2) | `createBggClient`     | `packages/api/src/bgg/client.ts` | Live data from BoardGameGeek           |
+| Implementation  | Factory               | Source                                  | Use                                    |
+| --------------- | --------------------- | --------------------------------------- | -------------------------------------- |
+| Mock            | `createMockBggClient` | `packages/bgg-client/src/bgg/mock/`     | Local dev / offline / tests (fixtures) |
+| Real (XML API2) | `createBggClient`     | `packages/bgg-client/src/bgg/client.ts` | Live data from BoardGameGeek           |
 
 Because both satisfy the same `BggClient` interface, call sites never change when
 switching between them.
@@ -26,7 +26,7 @@ imported into a client component — the build fails if it is.
 
 ```ts
 import 'server-only';
-import { createMockBggClient, createBggClient, type BggClient } from '@meeplehub/api/bgg';
+import { createMockBggClient, createBggClient, type BggClient } from '@meeplehub/bgg-client/bgg';
 
 const useMock = process.env.BGG_USE_MOCK === '1';
 
@@ -44,7 +44,7 @@ active.
 
 ## Real client
 
-`BggHttpClient` (`packages/api/src/bgg/client.ts`) fetches XML and parses it with
+`BggHttpClient` (`packages/bgg-client/src/bgg/client.ts`) fetches XML and parses it with
 [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) into
 the domain types.
 

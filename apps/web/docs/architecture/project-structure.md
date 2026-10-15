@@ -9,7 +9,7 @@
 - **Monorepo:** pnpm workspaces + Turborepo (`turbo.json`, `pnpm-workspace.yaml` with a version `catalog`).
 - **Web:** Next.js (App Router), React 19, Tailwind CSS v4, TanStack Query (client-side data).
 - **UI kit:** React + Tailwind + Shadcn UI (as a scaffolding source only — see conventions).
-- **Data/API:** `@meeplehub/api` — BGG XML API2 client (real + mock), consumed server-side by the web app.
+- **Data/API:** `@meeplehub/bgg-client` — BGG XML API2 client (real + mock), consumed server-side by the web app.
 - **Storybook:** component workshop for the UI kit (Storybook 10, `@storybook/react-vite`, Tailwind v4, light/dark themes).
 - **i18n:** shared locale package (`en`, `uk`).
 - **Tooling:** ESLint (flat config), Prettier, Husky (pre-commit: `check-types` + `format:check`), Vitest.
@@ -129,16 +129,16 @@ MeepleHub/
 │   │   ├── tsconfig.json
 │   │   └── package.json
 │   │
-│   ├── api/                                # @meeplehub/api — BGG client (mock + real)
+│   ├── bgg-client/                          # @meeplehub/bgg-client — BGG client (mock + real)
 │   │   ├── src/
 │   │   │   ├── bgg/
 │   │   │   │   ├── client.ts                # BggHttpClient — real XML API2 (fast-xml-parser)
 │   │   │   │   ├── types.ts                 # BggClient, BggSearchResult, BggGame
-│   │   │   │   ├── index.ts                 # subpath entry (@meeplehub/api/bgg) — re-exports
+│   │   │   │   ├── index.ts                 # subpath entry (@meeplehub/bgg-client/bgg) — re-exports
 │   │   │   │   └── mock/
 │   │   │   │       ├── client.ts            # MockBggClient
 │   │   │   │       └── data.ts              # MOCK_GAMES fixtures
-│   │   │   └── index.ts                     # package entry (@meeplehub/api)
+│   │   │   └── index.ts                     # package entry (@meeplehub/bgg-client)
 │   │   ├── data/                            # .gitkeep — reserved (future CSV source)
 │   │   ├── .gitignore
 │   │   ├── eslint.config.mjs
@@ -206,5 +206,5 @@ The web app follows Feature-Sliced Design. The `app`, `features` (`game-search`)
 ## Placeholders (exist as `.gitkeep`, not yet implemented)
 
 - `apps/mobile/` — React Native (future)
-- `packages/api/data/` — reserved for a CSV data source (future)
+- `packages/bgg-client/data/` — reserved for a CSV data source (future)
 - `packages/ui-kit/src/feature/` — reserved

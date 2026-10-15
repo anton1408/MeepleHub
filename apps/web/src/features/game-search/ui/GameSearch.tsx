@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { UiAutocomplete } from '@meeplehub/ui-kit/ui/UiAutocomplete';
-import type { BggSearchResult } from '@meeplehub/api/bgg';
+import type { BggSearchResult } from '@meeplehub/bgg-client/bgg';
 import { useDebouncedValue } from '@/shared/lib/useDebouncedValue';
 import { searchGames } from '../api/searchGames';
 

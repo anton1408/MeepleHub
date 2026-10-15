@@ -24,7 +24,7 @@ apps/
 packages/
   ui-kit/               Shared React UI package
   i18n/                 Shared localization (en, uk)
-  api/                  Reserved for shared API client code
+  bgg-client/           BGG XML API2 client (real + mock)
   eslint-config/        Shared ESLint configs
   typescript-config/    Shared TypeScript configs
 ```

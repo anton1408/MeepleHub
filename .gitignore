@@ -47,3 +47,9 @@ yarn-error.log*
 
 # Local scratch notes
 NOTES.local.md
+
+# Agents
+.agents
+.claude
+.windsurf
+skills-lock.json

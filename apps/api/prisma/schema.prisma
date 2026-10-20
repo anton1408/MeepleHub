@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Game {
+  // Internal record identifier in MeepleHub.
+  id String @id @default(cuid())
+
+  // BGG game identifier. The unique constraint prevents duplicate entries.
+  bggId Int @unique
+
+  name          String
+  description   String? @db.Text
+  yearPublished Int?
+  image         String?
+  thumbnail     String?
+  minPlayers    Int?
+  maxPlayers    Int?
+  playingTime   Int?
+  averageRating Float?
+
+  // The last time the game was synced with BGG.
+  bggSyncedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

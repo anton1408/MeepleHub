@@ -5,7 +5,7 @@
       "outputs": ["dist/**"]
     },
     "dev": {
-      "passThroughEnv": ["PORT"]
+      "passThroughEnv": ["PORT", "DATABASE_URL"]
     }
   }
 }

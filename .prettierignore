@@ -8,3 +8,4 @@ build
 coverage
 pnpm-lock.yaml
 next-env.d.ts
+apps/api/src/generated/prisma/

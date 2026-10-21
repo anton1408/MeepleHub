@@ -51,6 +51,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma Client
+        if: matrix.cmd == 'check-types' || matrix.cmd == 'test'
         run: pnpm --filter @meeplehub/api exec prisma generate
 
       # In CI vitest runs once and exits (it auto-detects the CI

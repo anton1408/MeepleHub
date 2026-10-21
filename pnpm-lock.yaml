@@ -185,6 +185,9 @@ importers:
       dotenv:
         specifier: ^18.0.8
         version: 18.0.8
+      fast-xml-parser:
+        specifier: 'catalog:'
+        version: 5.11.2
       pg:
         specifier: ^8.23.1
         version: 8.23.1

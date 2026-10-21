@@ -5,7 +5,7 @@
       "outputs": ["dist/**"]
     },
     "dev": {
-      "passThroughEnv": ["PORT", "DATABASE_URL"]
+      "passThroughEnv": ["PORT", "DATABASE_URL", "BGG_USE_MOCK", "BGG_API_TOKEN"]
     }
   }
 }

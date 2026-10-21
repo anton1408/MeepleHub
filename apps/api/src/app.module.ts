@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { BggModule } from './bgg/bgg.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { GamesController } from './games/games.controller.js';
@@ -6,7 +7,7 @@ import { GamesService } from './games/games.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [BggModule, PrismaModule],
   controllers: [AppController, GamesController],
   providers: [AppService, GamesService],
 })

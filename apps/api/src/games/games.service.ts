@@ -1,9 +1,14 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BGG_CLIENT } from '../bgg/bgg-client.token.js';
+import type { BggClient } from '../bgg/types.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 
 @Injectable()
 export class GamesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    @Inject(BGG_CLIENT) private readonly bggClient: BggClient,
+  ) {}
 
   findAll() {
     return this.prisma.game.findMany({
@@ -21,5 +26,9 @@ export class GamesService {
     }
 
     return game;
+  }
+
+  async search(query: string) {
+    return await this.bggClient.search(query);
   }
 }

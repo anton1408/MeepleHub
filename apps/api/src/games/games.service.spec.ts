@@ -1,6 +1,7 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { BGG_CLIENT } from '../bgg/bgg-client.token.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { GamesService } from './games.service.js';
 
@@ -13,6 +14,9 @@ describe('GamesService', () => {
       findUnique: vi.fn(),
     },
   };
+  const bggClientMock = {
+    search: vi.fn(),
+  };
 
   beforeEach(async () => {
     vi.clearAllMocks();
@@ -23,6 +27,10 @@ describe('GamesService', () => {
         {
           provide: PrismaService,
           useValue: prismaMock,
+        },
+        {
+          provide: BGG_CLIENT,
+          useValue: bggClientMock,
         },
       ],
     }).compile();
@@ -54,5 +62,19 @@ describe('GamesService', () => {
     prismaMock.game.findUnique.mockResolvedValue(null);
 
     await expect(service.findOne(999)).rejects.toThrow(NotFoundException);
+  });
+
+  it('returns a list of games by query', async () => {
+    const query = 'Catan';
+    const list = [
+      {
+        id: '13',
+        name: 'Catan',
+      },
+    ];
+    bggClientMock.search.mockResolvedValue(list);
+
+    await expect(service.search(query)).resolves.toEqual(list);
+    expect(bggClientMock.search).toHaveBeenCalledWith(query);
   });
 });

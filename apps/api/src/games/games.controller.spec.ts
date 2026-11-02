@@ -1,3 +1,4 @@
+import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GamesService } from './games.service.js';
@@ -9,6 +10,7 @@ describe('GamesController', () => {
   const gamesServiceMock = {
     findAll: vi.fn(),
     findOne: vi.fn(),
+    search: vi.fn(),
   };
 
   beforeEach(async () => {
@@ -33,6 +35,20 @@ describe('GamesController', () => {
 
     await expect(controller.getAllGames()).resolves.toEqual(games);
     expect(gamesServiceMock.findAll).toHaveBeenCalledOnce();
+  });
+
+  it('returns a list of games matching the search query', async () => {
+    const games = [{ id: '13', name: 'Catan' }];
+    const query = '  Catan  ';
+    gamesServiceMock.search.mockResolvedValue(games);
+
+    await expect(controller.getSearch(query)).resolves.toEqual(games);
+    expect(gamesServiceMock.search).toHaveBeenCalledWith('Catan');
+  });
+
+  it.each([undefined, '', '   '])('rejects an empty search query (%s)', (query) => {
+    expect(() => controller.getSearch(query)).toThrow(BadRequestException);
+    expect(gamesServiceMock.search).not.toHaveBeenCalled();
   });
 
   it('returns a game by its BGG ID from the service', async () => {

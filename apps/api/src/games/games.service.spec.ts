@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadGatewayException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { BGG_CLIENT } from '../bgg/bgg-client.token.js';
@@ -76,5 +76,11 @@ describe('GamesService', () => {
 
     await expect(service.search(query)).resolves.toEqual(list);
     expect(bggClientMock.search).toHaveBeenCalledWith(query);
+  });
+
+  it('throws BadGatewayException when the BGG search fails', async () => {
+    bggClientMock.search.mockRejectedValueOnce(new Error('Network error'));
+
+    await expect(service.search('Catan')).rejects.toThrow(BadGatewayException);
   });
 });

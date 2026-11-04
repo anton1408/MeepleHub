@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { BGG_CLIENT } from '../bgg/bgg-client.token.js';
 import type { BggClient } from '../bgg/types.js';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -29,6 +29,10 @@ export class GamesService {
   }
 
   async search(query: string) {
-    return await this.bggClient.search(query);
+    try {
+      return await this.bggClient.search(query);
+    } catch {
+      throw new BadGatewayException('BoardGameGeek is currently unavailable');
+    }
   }
 }

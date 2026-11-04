@@ -1,5 +1,6 @@
-import { BadRequestException, Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Query } from '@nestjs/common';
 import { GamesService } from './games.service.js';
+import { SearchGamesQueryDto } from './dto/search-games-query.dto.js';
 
 @Controller('games')
 export class GamesController {
@@ -11,14 +12,8 @@ export class GamesController {
   }
 
   @Get('search')
-  getSearch(@Query('query') query: string | undefined) {
-    const trimmedQuery = query?.trim();
-
-    if (!trimmedQuery) {
-      throw new BadRequestException('Query parameter "query" is required');
-    }
-
-    return this.gamesService.search(trimmedQuery);
+  getSearch(@Query() queryDto: SearchGamesQueryDto) {
+    return this.gamesService.search(queryDto.query);
   }
 
   @Get(':id')

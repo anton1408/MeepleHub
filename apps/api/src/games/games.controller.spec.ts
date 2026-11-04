@@ -1,4 +1,3 @@
-import { BadRequestException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { GamesService } from './games.service.js';
@@ -39,16 +38,11 @@ describe('GamesController', () => {
 
   it('returns a list of games matching the search query', async () => {
     const games = [{ id: '13', name: 'Catan' }];
-    const query = '  Catan  ';
+    const queryParams = { query: 'Catan' };
     gamesServiceMock.search.mockResolvedValue(games);
 
-    await expect(controller.getSearch(query)).resolves.toEqual(games);
-    expect(gamesServiceMock.search).toHaveBeenCalledWith('Catan');
-  });
-
-  it.each([undefined, '', '   '])('rejects an empty search query (%s)', (query) => {
-    expect(() => controller.getSearch(query)).toThrow(BadRequestException);
-    expect(gamesServiceMock.search).not.toHaveBeenCalled();
+    await expect(controller.getSearch(queryParams)).resolves.toEqual(games);
+    expect(gamesServiceMock.search).toHaveBeenCalledWith(queryParams.query);
   });
 
   it('returns a game by its BGG ID from the service', async () => {

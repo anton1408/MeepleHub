@@ -2,13 +2,27 @@ import { BadGatewayException, Inject, Injectable, NotFoundException } from '@nes
 import { BGG_CLIENT } from '../bgg/bgg-client.token.js';
 import type { BggClient, BggGame } from '../bgg/types.js';
 import { PrismaService } from '../prisma/prisma.service.js';
+import { ConfigService } from '@nestjs/config';
+import { isGameCacheFresh } from './game.util.js';
 
 @Injectable()
 export class GamesService {
+  private readonly cacheTtlDays: number;
+
   constructor(
     private readonly prisma: PrismaService,
     @Inject(BGG_CLIENT) private readonly bggClient: BggClient,
-  ) {}
+    @Inject(ConfigService) private readonly configService: ConfigService,
+  ) {
+    const raw = this.configService.get<string>('BGG_GAME_CACHE_TTL_DAYS');
+    const value = raw === undefined ? 30 : Number(raw);
+
+    if (!Number.isInteger(value) || value <= 0) {
+      throw new Error(`BGG_GAME_CACHE_TTL_DAYS must be a positive integer, got "${raw}"`);
+    }
+
+    this.cacheTtlDays = value;
+  }
 
   findAll() {
     return this.prisma.game.findMany({
@@ -21,12 +35,14 @@ export class GamesService {
       where: { bggId },
     });
 
-    if (dbGame) return dbGame;
+    if (dbGame && isGameCacheFresh(new Date(), dbGame.bggSyncedAt, this.cacheTtlDays)) return dbGame;
 
     let bggGameData: BggGame | null;
     try {
       bggGameData = await this.bggClient.getGame(String(bggId));
     } catch {
+      if (dbGame) return dbGame;
+
       throw new BadGatewayException('BoardGameGeek is currently unavailable');
     }
     if (!bggGameData) throw new NotFoundException(`Game with BGG ID ${bggId} not found`);

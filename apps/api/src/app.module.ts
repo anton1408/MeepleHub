@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { BggModule } from './bgg/bgg.module.js';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -7,7 +8,7 @@ import { GamesService } from './games/games.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 
 @Module({
-  imports: [BggModule, PrismaModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), BggModule, PrismaModule],
   controllers: [AppController, GamesController],
   providers: [AppService, GamesService],
 })

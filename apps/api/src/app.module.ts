@@ -6,9 +6,10 @@ import { AppService } from './app.service.js';
 import { GamesController } from './games/games.controller.js';
 import { GamesService } from './games/games.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
+import { AuthModule } from './auth/auth.module.js';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), BggModule, PrismaModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), BggModule, PrismaModule, AuthModule],
   controllers: [AppController, GamesController],
   providers: [AppService, GamesService],
 })

@@ -30,11 +30,17 @@ packages/
   typescript-config/    Shared TypeScript configs
 ```
 
+## Backend API
+
+The NestJS API in `apps/api` is under active development. It currently provides a PostgreSQL-backed games API with BGG integration and user registration with input validation and Argon2 password hashing. JWT authentication and protected routes are planned next.
+
+See the [Backend API documentation](apps/api/README.md) for setup instructions, endpoint details, database migrations, tests, and current roadmap.
+
 Dependency versions are centralized in `pnpm-workspace.yaml` using pnpm catalogs.
 
-## Documentation
+## Product & Web Architecture
 
-Architecture and product documentation lives in `apps/web/docs/architecture`:
+Product vision, domain model, user flows, information architecture, and web application structure are documented in `apps/web/docs/architecture`:
 
 - [Project Structure](apps/web/docs/architecture/project-structure.md) - actual repository layout and conventions
 - [Vision](apps/web/docs/architecture/vision.md) - product vision and goals
